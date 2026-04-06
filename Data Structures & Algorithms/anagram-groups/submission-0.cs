@@ -1,13 +1,16 @@
 public class Solution {
-    public int[] TwoSum(int[] nums, int target) {
-        Dictionary<int, int> prevMap = new Dictionary<int, int>();
-        for(int i = 0; i < nums.Length; i++) {
-            var diff = target - nums[i];
-            if(prevMap.ContainsKey(diff)) {
-                return new int[] {prevMap[diff], i};
+    public List<List<string>> GroupAnagrams(string[] strs) {
+        var res = new Dictionary<string, List<string>>();
+        foreach(var s in strs) {
+            char[] charArray = s.ToCharArray();
+            Array.Sort(charArray);
+            string sortedS = new string(charArray);
+            // if sortedS does not already exist as a key in the dictionary, we define a new array
+            if (!res.ContainsKey(sortedS)) {
+                res[sortedS] = new List<string>();
             }
-            prevMap[nums[i]] = i;
+            res[sortedS].Add(s);
         }
-        return null;
+        return res.Values.ToList<List<string>>();
     }
 }
